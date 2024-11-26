@@ -1,21 +1,16 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 import pickle
-from sklearn.preprocessing import MinMaxScaler
 
-
-# Memuat model dan scaler yang sudah disimpan
+# Memuat model yang sudah disimpan
 @st.cache_resource
-def load_model_and_scaler():
+def load_model():
     with open('modelrf.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
-    with open('scaler.pkl', 'rb') as scaler_file:
-        scaler = pickle.load(scaler_file)
-    return model, scaler
+    return model
 
-# Inisialisasi model dan scaler
-model, scaler = load_model_and_scaler()
+# Inisialisasi model
+model = load_model()
 
 # Judul Aplikasi
 st.title("Prediksi Model Machine Learning dengan Data Excel")
@@ -57,18 +52,9 @@ if uploaded_file is not None:
         # Mengambil data fitur yang relevan
         input_data = df[features].values
 
-        # Scaling data
-        scaled_data = scaler.transform(input_data)
-        st.write("Data setelah scaling:")
-        st.write(scaled_data)
-
         # Prediksi menggunakan model
-        predictions = model.predict(scaled_data)
-        st.write("Hasil Prediksi (scaled):", predictions)
-
-        # Unscaling data (untuk menampilkan hasil asli)
-        unscaled_predictions = scaler.inverse_transform(predictions.reshape(-1, len(features)))
-        st.write("Hasil Prediksi (unscaled):", unscaled_predictions.flatten())
+        predictions = model.predict(input_data)
+        st.write("Hasil Prediksi:", predictions)
 
     else:
         # Jika kolom yang dibutuhkan tidak ada
