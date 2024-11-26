@@ -67,7 +67,7 @@ if uploaded_file is not None:
         st.write("Hasil Prediksi (scaled):", predictions)
 
         # Unscaling data (untuk menampilkan hasil asli)
-        unscaled_predictions = scaler.inverse_transform(predictions.reshape(-1, 1))
+        unscaled_predictions = scaler.inverse_transform(predictions.reshape(-1, len(features)))
         st.write("Hasil Prediksi (unscaled):", unscaled_predictions.flatten())
 
     else:
