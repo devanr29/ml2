@@ -8,9 +8,9 @@ from sklearn.preprocessing import MinMaxScaler
 # Memuat model dan scaler yang sudah disimpan
 @st.cache_resource
 def load_model_and_scaler():
-    with open('model.pkl', 'rb') as model_file:
+    with open('modelrf.pkl', 'rb') as model_file:
         model = pickle.load(model_file)
-    with open('scaler.pkl', 'rb') as scaler_file:
+    with open('scaler2.pkl', 'rb') as scaler_file:
         scaler = pickle.load(scaler_file)
     return model, scaler
 
